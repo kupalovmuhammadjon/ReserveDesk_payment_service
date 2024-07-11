@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net"
-	"payment_service/config"
+	"payment_service/cmd/config"
 
 	pb "payment_service/genproto/payments"
 	"payment_service/pkg/logger"
@@ -31,7 +31,7 @@ func main() {
 	// fmt.Println(logger)
 	// fmt.Println("wsdfghn")
 
-	listener, err := net.Listen("tcp", cfg.PAYMENT_SERVICE_PORT)
+	listener, err := net.Listen("tcp", cfg.RESERVATION_SERVICE_PORT)
 	if err != nil {
 		logger.Fatal("error while making tcp connection")
 		return
