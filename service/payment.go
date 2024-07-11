@@ -50,15 +50,9 @@ func (p *PaymentService) GetStatus(ctx context.Context, req *pb.Id) (*pb.Status,
 	return r, nil
 }
 
-func (p *PaymentService) ValidatePaymentId(ctx context.Context, rep *pb.Id) (*pb.Status, error) {
-	r, err := p.Repo.ValidatePaymentId(rep)
-	if err != nil {
-		return nil, err
-	}
-	return r, nil
-}
 
 func (p *PaymentService) MakePayment(ctx context.Context, rep *pb.Payment) (*pb.Id, error) {
+	exist1, err := p.Repo.V
 	r, err := p.MakePayment(rep)
 	if err != nil {
 		return nil, err
