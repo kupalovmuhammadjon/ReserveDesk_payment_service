@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 	"net"
-	"payment_service/cmd/config"
+	"payment_service/config"
 
 	pb "payment_service/genproto/payments"
 	"payment_service/pkg/logger"
