@@ -6,7 +6,6 @@ import (
 	"log"
 	pb "payment_service/genproto/payments"
 	"time"
-
 	"github.com/google/uuid"
 )
 
