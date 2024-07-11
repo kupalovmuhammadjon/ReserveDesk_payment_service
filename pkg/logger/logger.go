@@ -7,16 +7,19 @@ package logger
 // )
 
 
+
 // func developmentConfig(file string) zap.Config {
 // 	zapConfig := zap.NewDevelopmentConfig()
 // 	zapConfig.OutputPaths = []string{"stdout", file}
 // 	zapConfig.ErrorOutputPaths = []string{"stderr"}
+
 
 // 	return zapConfig
 // }
 
 // func New(level, enviroment, file_name string) (*zap.Logger, error){
 // 	file := filepath.Join("./" + file_name)
+
 
 // 	zapConfig := developmentConfig(file)
 // 	switch level {

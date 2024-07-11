@@ -9,13 +9,13 @@ import (
 )
 
 type Config struct {
-	HTTP_PORT                string
+	HTTP_PORT            string
 	PAYMENT_SERVICE_PORT string
-	DB_HOST                  string
-	DB_PORT                  string
-	DB_USER                  string
-	DB_PASSWORD              string
-	DB_NAME                  string
+	DB_HOST              string
+	DB_PORT              string
+	DB_USER              string
+	DB_PASSWORD          string
+	DB_NAME              string
 }
 
 func Load() *Config {
@@ -24,7 +24,7 @@ func Load() *Config {
 		log.Fatalf("Error loading .env file: %v", err)
 	}
 	config := &Config{}
-	
+
 	config.HTTP_PORT = cast.ToString(coalesce("HTTP_PORT", ":8080"))
 	config.PAYMENT_SERVICE_PORT = cast.ToString(coalesce("PAYMENT_SERVICE_PORT", ":7777"))
 	config.DB_HOST = cast.ToString(coalesce("DB_HOST", "localhost"))
@@ -35,7 +35,6 @@ func Load() *Config {
 
 	return config
 }
-
 
 func coalesce(key string, value interface{}) interface{} {
 	val, exists := os.LookupEnv(key)

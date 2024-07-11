@@ -4,7 +4,8 @@ import (
 	"errors"
 	"log"
 	"payment_service/config"
-	 pbu "payment_service/genproto/payments"
+	pbu "payment_service/genproto/payments"
+
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
