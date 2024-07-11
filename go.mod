@@ -19,3 +19,7 @@ require (
 	golang.org/x/text v0.15.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240528184218-531527333157 // indirect
 )
+
+require go.uber.org/zap v1.27.0
+
+require go.uber.org/multierr v1.10.0 // indirect

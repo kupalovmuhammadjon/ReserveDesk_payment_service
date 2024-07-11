@@ -5,14 +5,14 @@ import (
 	"database/sql"
 	"fmt"
 	pb "payment_service/genproto/payments"
-	pbu "payment_service/genproto/reservation"
+	pbu "payment_service/genproto/reservations"
 	"payment_service/storage/postgres"
 )
 
 type PaymentService struct {
 	pb.UnimplementedPaymentsServer
 	Payment           *postgres.PaymentRepo
-	ReservationCleint pbu.ReservationCleint
+	ReservationCleint pbu.ReservationServiceClient
 }
 
 func NewPaymentService(db *sql.DB) *PaymentService {
@@ -30,7 +30,13 @@ func (p *PaymentService) GetPayments(ctx context.Context, req *pb.PaymentsFilter
 }
 
 func (p *PaymentService) UpdatePayment(ctx context.Context, req *pb.Payment) (*pb.Void, error) {
-	_, err := p.Payment.UpdatePayment(req)
+
+	exist, err := p.ReservationCleint.ValidateReservationId(ctx, &pbu.Id{Id: req.ReservationId})
+	if !exist.Exists || err != nil {
+		return nil, fmt.Errorf("reservation id invalid")
+	}
+
+	_, err = p.Payment.UpdatePayment(req)
 	if err != nil {
 		return &pb.Void{}, err
 	}
@@ -54,7 +60,7 @@ func (p *PaymentService) GetStatus(ctx context.Context, req *pb.Id) (*pb.Status,
 }
 
 func (p *PaymentService) MakePayment(ctx context.Context, req *pb.Payment) (*pb.Id, error) {
-	exist, err := p.ReservationCleint.ValidatePaymentId(req.ReservationId)
+	exist, err := p.ReservationCleint.ValidateReservationId(ctx, &pbu.Id{Id: req.ReservationId})
 	if !exist.Exists || err != nil {
 		return nil, fmt.Errorf("reservation id invalid")
 	}
@@ -66,10 +72,10 @@ func (p *PaymentService) MakePayment(ctx context.Context, req *pb.Payment) (*pb.
 	return r, nil
 }
 
-func (p *PaymentService) ValidatePaymentId(ctx context.Context, req *pb.Id) (*pb.Exists, error) {
-	exist, err := p.Payment.ValidatePaymentId(req)
-	if !exist.Exists || err != nil {
-		return &pb.Exists{Exists: exist.Exists}, err
-	}
-	return &pb.Exists{Exists: exist.Exists}, nil
-}
+// func (p *PaymentService) ValidatePaymentId(ctx context.Context, req *pb.Id) (*pb.Exists, error) {
+// 	exist, err := p.Payment.ValidatePaymentId(req)
+// 	if !exist.Exists || err != nil {
+// 		return &pb.Exists{Exists: exist.Exists}, err
+// 	}
+// 	return &pb.Exists{Exists: exist.Exists}, nil
+// }

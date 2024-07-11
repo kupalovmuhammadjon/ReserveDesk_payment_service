@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net"
 	"payment_service/config"
@@ -29,8 +28,8 @@ func main() {
 		return
 	}
 
-	fmt.Println(logger)
-	fmt.Println("wsdfghn")
+	// fmt.Println(logger)
+	// fmt.Println("wsdfghn")
 
 	listener, err := net.Listen("tcp", cfg.PAYMENT_SERVICE_PORT)
 	if err != nil {
