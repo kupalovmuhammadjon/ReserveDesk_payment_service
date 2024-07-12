@@ -4,13 +4,13 @@ import (
 	"errors"
 	"log"
 	"payment_service/config"
-	pbu "payment_service/genproto/payments"
+	pbr "payment_service/genproto/reservations"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-func CreateReservationClient(cfg *config.Config) pbu.PaymentsClient {
+func CreateReservationClient(cfg *config.Config) pbr.ReservationServiceClient {
 	conn, err := grpc.NewClient(cfg.PAYMENT_SERVICE_PORT,
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -18,5 +18,5 @@ func CreateReservationClient(cfg *config.Config) pbu.PaymentsClient {
 		return nil
 	}
 
-	return pbu.NewPaymentsClient(conn)
+	return pbr.NewReservationServiceClient(conn)
 }

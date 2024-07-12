@@ -4,18 +4,27 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"payment_service/config"
 	pb "payment_service/genproto/payments"
+	pbr "payment_service/genproto/reservations"
+	"payment_service/pkg"
 	"time"
+
 	"github.com/google/uuid"
 )
 
 type PaymentRepo struct {
-	Db *sql.DB
+	Db                *sql.DB
+	ReservationCleint pbr.ReservationServiceClient
 	pb.UnimplementedPaymentsServer
 }
 
 func NewPaymentRepo(db *sql.DB) *PaymentRepo {
-	return &PaymentRepo{Db: db}
+	cfg := config.Load()
+	return &PaymentRepo{
+		Db: db,
+		ReservationCleint: pkg.CreateReservationClient(cfg),
+	}
 }
 
 func (p *PaymentRepo) MakePayment(req *pb.Payment) (*pb.Id, error) {
