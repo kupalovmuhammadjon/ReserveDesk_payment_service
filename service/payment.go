@@ -7,6 +7,7 @@ import (
 	pb "payment_service/genproto/payments"
 	pbu "payment_service/genproto/reservations"
 	"payment_service/storage/postgres"
+	"testing"
 )
 
 type PaymentService struct {
@@ -16,8 +17,9 @@ type PaymentService struct {
 }
 
 func NewPaymentService(db *sql.DB) *PaymentService {
+	t := testing.T{}
 	return &PaymentService{
-		Payment: postgres.NewPaymentRepo(db),
+		Payment: postgres.NewPaymentRepo(db, &t),
 	}
 }
 
