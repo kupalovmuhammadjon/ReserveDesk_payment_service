@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test_MakePayment(t *testing.T) {
+func TestMakePayment(t *testing.T) {
 	db := sql.DB{}
 	payments := NewPaymentRepo(&db, t)
 
@@ -23,7 +23,7 @@ func Test_MakePayment(t *testing.T) {
 	}
 }
 
-func Test_UpdatePayment(t *testing.T) {
+func TestUpdatePayment(t *testing.T) {
 	db := sql.DB{}
 	payments := NewPaymentRepo(&db, t)
 
@@ -39,7 +39,7 @@ func Test_UpdatePayment(t *testing.T) {
 	}
 }
 
-func Test_GetPayment(t *testing.T) {
+func TestGetPayment(t *testing.T) {
 	db := sql.DB{}
 	payments := NewPaymentRepo(&db, t)
 
@@ -53,7 +53,7 @@ func Test_GetPayment(t *testing.T) {
 	}
 }
 
-func Test_DeletePayment(t *testing.T) {
+func TestDeletePayment(t *testing.T) {
 	db := sql.DB{}
 	payments := NewPaymentRepo(&db, t)
 
@@ -81,7 +81,7 @@ func TestPaymentRepo_GetStatus(t *testing.T) {
 	}
 }
 
-func Test_ValidatePaymentId(t *testing.T) {
+func TestValidatePaymentId(t *testing.T) {
 	db := sql.DB{}
 	payments := NewPaymentRepo(&db, t)
 
