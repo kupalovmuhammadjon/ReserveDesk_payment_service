@@ -3,19 +3,24 @@ package postgres
 import (
 	"database/sql"
 	"fmt"
+	"github.com/google/uuid"
 	"log"
 	pb "payment_service/genproto/payments"
+	"testing"
 	"time"
-	"github.com/google/uuid"
 )
 
 type PaymentRepo struct {
 	Db *sql.DB
 	pb.UnimplementedPaymentsServer
+	t *testing.T
 }
 
-func NewPaymentRepo(db *sql.DB) *PaymentRepo {
-	return &PaymentRepo{Db: db}
+func NewPaymentRepo(db *sql.DB, t *testing.T) *PaymentRepo {
+	return &PaymentRepo{
+		Db: db,
+		t:  t,
+	}
 }
 
 func (p *PaymentRepo) MakePayment(req *pb.Payment) (*pb.Id, error) {

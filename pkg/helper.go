@@ -3,7 +3,7 @@ package pkg
 import (
 	"errors"
 	"log"
-	"payment_service/cmd/config"
+	"payment_service/config"
 	pbu "payment_service/genproto/reservations"
 
 	"google.golang.org/grpc"
