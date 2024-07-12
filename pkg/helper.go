@@ -11,7 +11,7 @@ import (
 )
 
 func CreateReservationClient(cfg *config.Config) pbr.ReservationServiceClient {
-	conn, err := grpc.NewClient(cfg.PAYMENT_SERVICE_PORT,
+	conn, err := grpc.NewClient(cfg.RESERVATION_SERVICE_PORT,
 		grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Println(errors.New("failed to connect to the address: " + err.Error()))
